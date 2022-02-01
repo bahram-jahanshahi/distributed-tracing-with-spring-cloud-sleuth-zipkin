@@ -13,25 +13,16 @@ import java.util.Objects;
 @Service
 public class SendMessageService {
 
-    private final Environment environment;
-
     private final RestTemplate restTemplate;
-
-    private static final Logger logger  = LoggerFactory.getLogger(SendMessageService.class);
-
-    private final String applicationName;
 
     private final String sendMessageUrl;
 
     public SendMessageService(Environment environment) {
-        this.environment = environment;
-        restTemplate = new RestTemplateBuilder().build();
-        applicationName = environment.getProperty("spring.application.name");
+        restTemplate = new RestTemplate();
         this.sendMessageUrl = Objects.requireNonNull(environment.getProperty("server-service.url")) + "/api/v1/message";
     }
 
     public void send(String message) {
-        logger.info("Incoming request at {} to send message", this.applicationName);
         this.restTemplate.postForEntity(sendMessageUrl, message, String.class, Map.of());
     }
 }
