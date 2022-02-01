@@ -10,20 +10,7 @@ import java.util.Random;
 @Service
 public class ReceiveMessageService {
 
-    private final Environment environment;
-
-    private static final Logger logger  = LoggerFactory.getLogger(ReceiveMessageService.class);
-
-    private final String applicationName;
-
-    public ReceiveMessageService(Environment environment) {
-        this.environment = environment;
-        applicationName = environment.getProperty("spring.application.name");
-    }
-
-
     public void receive(String message) {
-        logger.info("Incoming request at {} to receive message", this.applicationName);
         delay();
     }
 
